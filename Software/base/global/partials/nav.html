@@ -1,5 +1,14 @@
+{% load static %}
+<div class="logo">
+    <img src="{% static 'global/images/logo_help.jpg' %}" alt="Logo do Help">
+    <h1>Help</h1>
+</div>
 <nav>
     <ul>
-        <li><a href="{% url '' %}">Início</a></li>
+        <li><a href="{% url 'home' %}">Início</a></li>
     </ul>
 </nav>
+<div class="social-icons">
+    <a href="#">login</a>
+    <a href="#">registrar</a>
+</div>
