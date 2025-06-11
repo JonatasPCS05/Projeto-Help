@@ -4,6 +4,8 @@
     {% include 'global/partials/navUser.html' %}
 {% endblock nav %}
 
+{% block title %}{{ titulo }} | {% endblock title %}
+
 {% block content %}
 <div class="main-content container">
     <h2>{{ titulo }}</h2>
@@ -21,7 +23,7 @@
             {% endfor %}
         </div>
         <div class="form-group">
-            <button type="submit" class="btn">Salvar</button>
+            <button type="submit" class="btn btn-azul">Salvar</button>
         </div>
     </form>
 </div>

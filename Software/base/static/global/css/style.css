@@ -1,17 +1,31 @@
+:root {
+    --primary-color: #007bff;
+    --secondary-color: #6c757d;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --light-color: #f8f9fa;
+    --dark-color: #343a40;
+    --text-color: #333;
+    --background-color: #f4f7f6;
+    --border-radius: 8px;
+    --box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f8f9fa;
-    color: #333;
+    background-color: var(--background-color);
+    color: var(--text-color);
     display: flex;
     flex-direction: column;
     min-height: 100vh;
 }
 
-.main-content-container {
+main {
     flex: 1;
-    padding: 20px;
+    padding: 2rem 0;
 }
 
 .container {
@@ -20,15 +34,121 @@ body {
     margin: 0 auto;
 }
 
-/* Estilos para as mensagens do Django */
+h1, h2, h3 {
+    color: var(--dark-color);
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+}
+
+p {
+    line-height: 1.6;
+}
+
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.2s ease-in-out;
+}
+a:hover {
+    text-decoration: underline;
+    color: #0056b3;
+}
+
+.form-wrapper {
+    background: #fff;
+    padding: 2rem 2.5rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    max-width: 500px;
+    margin: 2rem auto;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: var(--border-radius);
+    box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.form-group .help-text {
+    font-size: 0.8rem;
+    color: var(--secondary-color);
+    margin-top: 0.25rem;
+}
+
+.form-group .errorlist {
+    color: var(--danger-color);
+    font-size: 0.9rem;
+    list-style: none;
+    padding: 0;
+    margin-top: 0.5rem;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+.btn:hover {
+    transform: translateY(-2px);
+    text-decoration: none;
+}
+
+.btn-azul {
+    background-color: #007bff;
+    color: #ffffff;
+}
+.btn-azul:hover {
+    background-color: #0056b3;
+    color: #ffffff;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    color: #ffffff;
+}
+.btn-danger:hover {
+    background-color: #c82333;
+}
+
 .messages-container {
-    margin-bottom: 20px;
+    padding: 0;
 }
 .message {
-    padding: 15px;
-    margin-bottom: 15px;
-    border-radius: 4px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
     border: 1px solid transparent;
+    border-radius: var(--border-radius);
+    list-style: none;
 }
 .message.success {
     color: #155724;
@@ -46,11 +166,41 @@ body {
     border-color: #bee5eb;
 }
 
-/* Footer */
-.main-footer-container {
-    background: #343a40;
-    color: white;
-    text-align: center;
-    padding: 20px;
-    margin-top: auto;
+.table-wrapper {
+    background: #fff;
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    overflow-x: auto;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+.table th, .table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #e9ecef;
+    vertical-align: middle;
+}
+
+.table th {
+    background-color: #e9ecef;
+    font-weight: 600;
+}
+
+.table tr:last-child td {
+    border-bottom: none;
+}
+
+.table tr:hover {
+    background-color: #f8f9fa;
+}
+
+.table-actions a {
+    margin-right: 10px;
+    font-weight: bold;
 }

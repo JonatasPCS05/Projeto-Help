@@ -1,42 +1,40 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-</head>
-<body>
-    <h1>Faça seu Login</h1>
+{% extends 'global/base.html' %}
 
+{% block nav %}
+    {% include 'global/partials/nav.html' %}
+{% endblock nav %}
+
+{% block title %}Login | {% endblock title %}
+
+{% block content %}
+<div class="main-content container">
     {% if messages %}
-        <ul class="messages">
+        <ul class="messages-container">
             {% for message in messages %}
-                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                <li class="message {{ message.tags }}">{{ message }}</li>
             {% endfor %}
         </ul>
     {% endif %}
+</div>
 
-    <div class="form-wrapper">
-        <h2>Login</h2>
-        <form action="{% url 'autenticacao:login' %}" method="POST">
-            {% csrf_token %}
-            
-            <div class="form-content">
-                {% for field in form %}
-                    <div class="form-group">
-                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                        {{ field }}
-                        {{ field.errors }}
-                    </div>
-                {% endfor %}
-            </div>
+<div class="form-wrapper">
+    <h2>Acesse sua conta</h2>
+    <p>Digite seu usuário e senha para entrar.</p>
 
-            <div class="form-content">
-                <div class="form-group">
-                    <button class="btn" type="submit">Entrar</button>
-                </div>
+    <form method="POST" action="{% url 'autenticacao:login' %}">
+        {% csrf_token %}
+        
+        {% for field in form %}
+            <div class="form-group">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {{ field.errors }}
             </div>
-        </form>
-    </div>
-</body>
-</html>
+        {% endfor %}
+        
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Entrar</button>
+        </div>
+    </form>
+</div>
+{% endblock content %}

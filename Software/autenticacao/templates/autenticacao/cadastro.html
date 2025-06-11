@@ -1,55 +1,35 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro</title>
-</head>
-<body>
-    <h1>Faça seu cadastro aqui</h1>
+{% extends 'global/base.html' %}
 
-    <div class="form-wrapper">
+{% block nav %}
+    {% include 'global/partials/nav.html' %}
+{% endblock nav %}
 
-        <h2>Register</h2>
+{% block title %}Cadastro | {% endblock title %}
+
+{% block content %}
+<div class="form-wrapper">
+    <h2>Crie sua conta</h2>
+    <p>Preencha os campos abaixo para se cadastrar no sistema.</p>
+
+    <form action="{{ form_action }}" method="POST">
+        {% csrf_token %}
         
-        <form 
-        action="{{ form_action }}"
-        method="POST"
-        >
-            {% csrf_token %}      
-            
-            <div class="form-content">
-
-                {% for field in form %}
-                <div class="form-group">
-                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                    {{ field }}
-                    {{ field.errors }}
-
-                    {% if field.help_text %}
+        {% for field in form %}
+            <div class="form-group">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.help_text %}
                     <p class="help-text">{{ field.help_text }}</p>
-                    {% endif %}
-                </div>
-                {% endfor %}
+                {% endif %}
+                {{ field.errors }}
             </div>
-
-            {% if form.non_field_errors %}
-                <div class="form-content">
-                <div class="form-group">
-                    <div class="message error">
-                    {{ form.non_field_errors }}
-                    </div>
-                </div>
-                </div>
-            {% endif %}
-
-            <div class="form-content">
-                <div class="form-group">
-                <button class="btn" type="submit">Send</button>
-                </div>
-            </div>
-
-        </form>
-    </div>
-</body>
-</html>
+        {% endfor %}
+        
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Cadastrar</button>
+        </div>
+    </form>
+    
+    <p class="center">Já tem uma conta? <a href="{% url 'autenticacao:login' %}">Faça seu login.</a></p>
+</div>
+{% endblock content %}
