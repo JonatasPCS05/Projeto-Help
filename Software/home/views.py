@@ -6,3 +6,6 @@ def home(request):
 
 def sobre(request):
     return render(request, 'home/sobre.html')
+
+def homeUser(request):
+    return render(request, 'home/homeUser.html')
