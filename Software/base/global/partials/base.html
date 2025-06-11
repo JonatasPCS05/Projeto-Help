@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Help Service{% endblock title %}</title>
+    <link rel="stylesheet" href="{% static 'global/css/nav.css' %}">
+    <link rel="stylesheet" href="{% static 'global/css/style.css' %}">
+</head>
+<body>
+    
+    <header class="main-header-container">
+        {% block nav %}
+            {% endblock nav %}
+    </header>
+
+    <main class="main-content-container">
+        {% if messages %}
+            <div class="container messages-container">
+                {% for message in messages %}
+                    <div class="message {{ message.tags }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {% block content %}
+            {% endblock content %}
+    </main>
+
+    <footer class="main-footer-container">
+        <div class="container">
+            <p>&copy; {% now "Y" %} Help Service. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

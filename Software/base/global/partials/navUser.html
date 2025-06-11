@@ -1,0 +1,19 @@
+<div class="logo">
+    <a href="{% url 'sistema:homeUser' %}" class="nav-logo">
+        <img src="/static/global/images/logo_help.jpg" alt="Logo" width="100px">
+    </a>
+    <h1>Help</h1>
+</div>
+<nav class="nav">
+    <div class="nav-container">
+        <ul class="nav-links">
+            <li><a href="{% url 'sistema:solicitar_servico' %}" class="btn">Solicitar Serviço</a></li>
+            <li>
+                <form action="{% url 'autenticacao:logout' %}" method="post" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Sair</button>
+                </form>
+            </li>
+        </ul>
+    </div>
+</nav>

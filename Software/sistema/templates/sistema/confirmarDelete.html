@@ -1,0 +1,17 @@
+{% extends 'global/partials/base.html' %}
+
+{% block nav %}
+    {% include 'global/partials/navUser.html' %}
+{% endblock nav %}
+
+{% block content %}
+<div class="main-content container">
+    <h2>Confirmar Exclusão</h2>
+    <p>Você tem certeza que deseja excluir a solicitação de <strong>{{ servico.get_tipo_servico_display }}</strong> para o endereço "{{ servico.endereco }}"?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Sim, tenho certeza</button>
+        <a href="{% url 'sistema:homeUser' %}" class="btn">Cancelar</a>
+    </form>
+</div>
+{% endblock content %}

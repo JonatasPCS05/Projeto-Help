@@ -26,4 +26,5 @@ urlpatterns = [
     path('autenticacao/', include('autenticacao.urls')),
     path('hello/', my_view),
     path('admin/', admin.site.urls),
+    path('sistema/', include('sistema.urls')),
 ]
