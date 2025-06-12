@@ -84,3 +84,27 @@ nav ul li a:hover::after {
     width: 20px;
     margin-left: 10px;
 }
+
+.social-icons a{
+    color: #fff;
+    text-decoration: none;
+    font-size: 1em;
+    position: relative;
+    padding: 5px 0;
+    transition: color 0.3s ease;
+}
+
+.social-icons a::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background-color: #FFD700;
+    transition: width 0.3s ease;
+}
+
+.social-icons a:hover::after {
+    width: 100%; 
+}
