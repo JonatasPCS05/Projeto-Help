@@ -98,6 +98,12 @@ a:hover {
     margin-top: 0.25rem;
 }
 
+.form-group ul li{
+    font-size: 0.8rem;
+    color: var(--secondary-color);
+    margin-top: 0.25rem;
+}
+
 .form-group .errorlist {
     color: var(--danger-color);
     font-size: 0.9rem;
