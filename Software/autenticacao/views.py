@@ -1,26 +1,25 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login as auth_login, authenticate
 from django.contrib import messages
-from .forms import RegisterForms, LoginForm
+from .forms import LoginForm, EmailForm, PasswordForm, NameForm
 from django.contrib.auth import logout
+from formtools.wizard.views import SessionWizardView
+from django.contrib.auth.models import User
 
-def cadastro(request):
-    form_action = request.path
+class UserRegisterWizard(SessionWizardView):
+    form_list = [EmailForm, PasswordForm, NameForm]
+    template_name = "autenticacao/cadastro.html"
 
-    if request.method == 'POST':
-        form = RegisterForms(request.POST)
-        if form.is_valid():
-            user = form.save()
-            auth_login(request, user)
-            messages.success(request, f'Bem-vindo, {user.username}! Cadastro realizado com sucesso.')
-            return redirect('sistema:homeUser')
-    else:
-        form = RegisterForms()
-
-    return render(request, 'autenticacao/cadastro.html', {
-        'form': form,
-        'form_action': form_action,
-    })
+    def done(self, form_list, **kwargs):
+        form_data = self.get_all_cleaned_data()
+        user = User.objects.create_user(
+            username=form_data["email"],
+            email=form_data["email"],
+            password=form_data["password1"],
+            first_name=form_data["first_name"],
+            last_name=form_data["last_name"],
+        )
+        return render(self.request, 'autenticacao/login.html', {"user": user})
 
 
 def login(request):

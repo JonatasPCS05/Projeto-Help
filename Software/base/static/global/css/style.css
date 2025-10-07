@@ -67,6 +67,11 @@ a:hover {
     margin-bottom: 1.5rem;
 }
 
+.form-group input {
+    margin-bottom: 20px;
+}
+
+
 .form-group label {
     display: block;
     margin-bottom: 0.5rem;
