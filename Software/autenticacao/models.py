@@ -1,9 +1,18 @@
 from django.db import models
+from django.contrib.auth.models import User
 
-# Create your models here.
-class Registro(models.Model):
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
-    phone = models.CharField(max_length=50, blank=True)
-    email = models.EmailField(max_length=245)
-    password = models.CharField(max_length=50)
+class Perfil(models.Model):
+    TIPO_USUARIO_CHOICES = [
+        ('comum', 'Usuário Comum'),
+        ('autonomo', 'Autônomo'),
+    ]
+
+    usuario = models.OneToOneField(User, on_delete=models.CASCADE)
+    tipo_usuario = models.CharField(
+        max_length=20,
+        choices=TIPO_USUARIO_CHOICES,
+        default='comum'
+    )
+
+    def __str__(self):
+        return f"{self.usuario.username} ({self.get_tipo_usuario_display()})"

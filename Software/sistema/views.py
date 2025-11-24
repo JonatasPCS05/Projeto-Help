@@ -48,3 +48,15 @@ def deletar_servico(request, servico_id):
         return redirect('sistema:homeUser')
     
     return render(request, 'sistema/confirmarDelete.html', {'servico': servico})
+
+@login_required
+def home_autonomo(request):
+    # mostra os serviços que esse autônomo já aceitou
+    servicos = Servico.objects.filter(usuario=request.user)
+    return render(request, 'sistema/home_autonomo.html', {'servicos': servicos})
+
+@login_required
+def solicitacoes_gerais(request):
+    # mostra todos os serviços pendentes
+    servicos = Servico.objects.all().order_by('-data_solicitacao')
+    return render(request, 'sistema/solicitacoes_gerais.html', {'servicos': servicos})

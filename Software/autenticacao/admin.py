@@ -1,4 +1,8 @@
 from django.contrib import admin
-from autenticacao import models
+from .models import Perfil
 
-# Register your models here.
+@admin.register(Perfil)
+class PerfilAdmin(admin.ModelAdmin):
+    list_display = ('usuario', 'tipo_usuario')
+    list_filter = ('tipo_usuario',)
+    search_fields = ('usuario__username', 'usuario__email')

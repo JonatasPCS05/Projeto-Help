@@ -9,4 +9,5 @@ urlpatterns = [
     path('', views.login, name='login'),
     path("cadastro/", UserRegisterWizard.as_view([EmailForm, PasswordForm, NameForm]), name="cadastro"),
     path('logout/', views.logout_view, name='logout'),
+    path('tornar-autonomo/', views.solicitar_autonomo, name='solicitar_autonomo'),
 ]

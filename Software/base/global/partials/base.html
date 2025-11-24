@@ -33,6 +33,24 @@
             <p>&copy; {% now "Y" %} Help Service. Todos os direitos reservados.</p>
         </div>
     </footer>
-
 </body>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const profileButton = document.getElementById('profileButton');
+        const dropdown = document.getElementById('profileDropdown');
+
+        // Ao clicar no botão, alterna o menu
+        profileButton.addEventListener('click', function(e) {
+            e.stopPropagation();
+            dropdown.classList.toggle('show'); // mostra ou esconde
+        });
+
+        // Fecha se clicar fora do menu
+        document.addEventListener('click', function(e) {
+            if (!profileButton.contains(e.target) && !dropdown.contains(e.target)) {
+                dropdown.classList.remove('show');
+            }
+        });
+    });
+</script>
 </html>

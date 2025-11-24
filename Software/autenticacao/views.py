@@ -5,6 +5,9 @@ from .forms import LoginForm, EmailForm, PasswordForm, NameForm
 from django.contrib.auth import logout
 from formtools.wizard.views import SessionWizardView
 from django.contrib.auth.models import User
+from django.core.mail import send_mail
+from django.contrib.auth.decorators import login_required
+from .forms import SolicitarAutonomoForm
 
 class UserRegisterWizard(SessionWizardView):
     form_list = [EmailForm, PasswordForm, NameForm]
@@ -46,3 +49,21 @@ def logout_view(request):
     logout(request)
     messages.info(request, 'Você saiu do sistema.')
     return redirect('home:home')
+
+@login_required
+def solicitar_autonomo(request):
+    if request.method == 'POST':
+        form = SolicitarAutonomoForm(request.POST)
+        if form.is_valid():
+            mensagem = form.cleaned_data['mensagem']
+            send_mail(
+                subject='Solicitação de conta Autônomo',
+                message=f"O usuário {request.user.username} ({request.user.email}) solicitou se tornar autônomo.\n\nMensagem:\n{mensagem}",
+                from_email='seuemail@gmail.com',
+                recipient_list=['jonatascontateste01@gmail.com'],
+            )
+            messages.success(request, 'Sua solicitação foi enviada com sucesso!')
+            return redirect('sistema:homeUser')
+    else:
+        form = SolicitarAutonomoForm()
+    return render(request, 'autenticacao/solicitar_autonomo.html', {'form': form})

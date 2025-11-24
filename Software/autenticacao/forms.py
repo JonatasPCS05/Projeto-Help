@@ -24,3 +24,9 @@ class LoginForm(forms.Form):
         label='Senha',
         widget=forms.PasswordInput()
     )
+
+class SolicitarAutonomoForm(forms.Form):
+    mensagem = forms.CharField(
+        label="Por que você quer se tornar autônomo?",
+        widget=forms.Textarea(attrs={"rows": 4, "placeholder": "Descreva aqui..."})
+    )

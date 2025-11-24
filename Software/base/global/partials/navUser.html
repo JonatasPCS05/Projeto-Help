@@ -4,15 +4,28 @@
     </a>
     <h1>Help</h1>
 </div>
+
 <nav class="nav">
     <div class="nav-container">
         <ul class="nav-links">
-            <li><a href="{% url 'sistema:solicitar_servico' %}" class="btn">Solicitar Serviço</a></li>
+                <li><a href="{% url 'sistema:solicitar_servico' %}" class="btn">Solicitar Serviço</a></li>
+            {% if request.user.perfil.tipo_usuario == 'autonomo' %}
+                <li><a href="{% url 'sistema:home_autonomo' %}" class="btn">Minhas Solicitações</a></li>
+                <li><a href="{% url 'sistema:solicitacoes_gerais' %}" class="btn">Solicitações Gerais</a></li>
+            {% endif %}
+            
             <li>
-                <form action="{% url 'autenticacao:login' %}" method="post" style="display: inline;">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-danger">Sair</button>
-                </form>
+                <div class="profile-menu">
+                    <button id="profileButton" class="btn">Perfil</button>
+                    <div id="profileDropdown" class="dropdown-content">
+                        <p>{{ request.user.first_name }} {{ request.user.last_name }}</p>
+                        <a href="{% url 'autenticacao:solicitar_autonomo' %}">Tornar Autônomo</a>
+                        <form action="{% url 'autenticacao:logout' %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger">Sair</button>
+                        </form>
+                    </div>
+                </div>
             </li>
         </ul>
     </div>

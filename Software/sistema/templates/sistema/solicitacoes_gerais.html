@@ -1,0 +1,33 @@
+{% extends 'global/partials/base.html' %}
+{% block nav %}
+    {% include 'global/partials/navUser.html' %}
+{% endblock nav %}
+{% block content %}
+<h2>Solicitações de Usuários</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Usuário</th>
+      <th>Serviço</th>
+      <th>Endereço</th>
+      <th>Data</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for servico in servicos %}
+      <tr>
+        <td>{{ servico.usuario.username }}</td>
+        <td>{{ servico.get_tipo_servico_display }}</td>
+        <td>{{ servico.endereco }}</td>
+        <td>{{ servico.data_solicitacao|date:"d/m/Y" }}</td>
+        <td>
+          <a href="#">Aceitar</a> | <a href="#">Recusar</a>
+        </td>
+      </tr>
+    {% empty %}
+      <tr><td colspan="5">Nenhuma solicitação disponível.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

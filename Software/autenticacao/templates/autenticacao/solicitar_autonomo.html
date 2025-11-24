@@ -1,0 +1,22 @@
+{% extends 'global/partials/base.html' %}
+
+{% block nav %}
+    {% include 'global/partials/navUser.html' %}
+{% endblock nav %}
+
+{% block title %}Tornar Autônomo | {% endblock title %}
+
+{% block content %}
+<div class="form-wrapper">
+    <h2>Solicitar acesso como Autônomo</h2>
+    <p>Preencha o campo abaixo para enviar sua solicitação.</p><br>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Enviar solicitação</button>
+    </form>
+
+    <p class="center"><a href="{% url 'sistema:homeUser' %}">Voltar</a></p>
+</div>
+{% endblock content %}
