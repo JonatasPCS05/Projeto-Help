@@ -1,0 +1,36 @@
+{% extends 'global/partials/base.html' %}
+
+{% block nav %}
+    {% include 'global/partials/navUser.html' %}
+{% endblock nav %}
+
+{% block title %}Analisar Proposta | {% endblock title %}
+
+{% block content %}
+<div class="main-content container">
+    <h2>Detalhes da Proposta</h2>
+    
+    <div style="background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); text-align: left; max-width: 600px; margin: 0 auto;">
+        <h3 style="color: var(--primary-color);">{{ servico.get_tipo_servico_display }}</h3>
+        <p><strong>Autônomo:</strong> {{ servico.autonomo.username }}</p>
+        <p><strong>Descrição do seu pedido:</strong> {{ servico.descricao }}</p>
+        <hr>
+        
+        <div style="background-color: #f8f9fa; padding: 15px; border-radius: 5px; margin-bottom: 20px;">
+            <p style="font-size: 1.2rem; margin-bottom: 10px;">
+                <strong>Valor Cobrado:</strong> <span style="color: green;">R$ {{ servico.valor_hora }} / hora</span>
+            </p>
+            <p style="font-size: 1.2rem;">
+                <strong>Data da Visita:</strong> {{ servico.data_visita|date:"d/m/Y" }} às {{ servico.data_visita|date:"H:i" }}
+            </p>
+        </div>
+
+        <form method="POST" style="display: flex; gap: 10px; justify-content: center;">
+            {% csrf_token %}
+            <button type="submit" name="acao" value="aceitar" class="btn btn-azul" style="background-color: #28a745;">Aceitar Proposta</button>
+            <button type="submit" name="acao" value="recusar" class="btn btn-danger">Recusar</button>
+            <a href="{% url 'sistema:homeUser' %}" class="btn" style="background-color: #6c757d; color: white;">Voltar</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

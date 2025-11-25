@@ -20,20 +20,48 @@
         <thead>
             <tr>
                 <th>Serviço</th>
-                <th>Endereço</th>
-                <th>Data da Solicitação</th>
+                <th>Status</th>
+                <th>Data</th>
                 <th>Ações</th>
             </tr>
         </thead>
         <tbody>
             {% for servico in servicos %}
                 <tr>
-                    <td>{{ servico.get_tipo_servico_display }}</td>
-                    <td>{{ servico.endereco }}</td>
+                    <td>
+                        <strong>{{ servico.get_tipo_servico_display }}</strong><br>
+                        <small>{{ servico.endereco }}</small>
+                    </td>
+                    <td>
+                        {% if servico.status == 'aberto' %}
+                            <span style="color: gray;">Aguardando Autônomo</span>
+                        {% elif servico.status == 'proposta_enviada' %}
+                            <span style="color: #FFD700; font-weight: bold;">Proposta Recebida!</span>
+                        {% elif servico.status == 'pendente' %}
+                            <span style="color: green; font-weight: bold;">Em Andamento</span>
+                        {% elif servico.status == 'concluido' %}
+                            <span style="color: blue;">Concluído</span>
+                        {% endif %}
+                    </td>
                     <td>{{ servico.data_solicitacao|date:"d/m/Y" }}</td>
                     <td>
-                        <a href="{% url 'sistema:atualizar_servico' servico.id %}">Editar</a>
-                        <a href="{% url 'sistema:deletar_servico' servico.id %}">Excluir</a>
+                        {% if servico.status == 'aberto' %}
+                            <a href="{% url 'sistema:atualizar_servico' servico.id %}" class="btn btn-azul" style="padding: 5px 10px; font-size: 0.8rem;">Editar</a>
+                            <a href="{% url 'sistema:deletar_servico' servico.id %}" class="btn btn-danger" style="padding: 5px 10px; font-size: 0.8rem;">Excluir</a>
+                        
+                        {% elif servico.status == 'proposta_enviada' %}
+                            <a href="{% url 'sistema:ver_proposta' servico.id %}" class="btn btn-azul">Ver Proposta</a>
+                        
+                        {% elif servico.status == 'pendente' %}
+                            <form action="{% url 'sistema:ver_proposta' servico.id %}" method="POST" style="display:inline;">
+                                {% csrf_token %}
+                                <input type="hidden" name="acao" value="concluir">
+                                <button type="submit" class="btn btn-success" style="background-color: #28a745; color: white;">Concluir Serviço</button>
+                            </form>
+                        
+                        {% elif servico.status == 'concluido' %}
+                             ✅ Finalizado
+                        {% endif %}
                     </td>
                 </tr>
             {% empty %}
@@ -44,4 +72,4 @@
         </tbody>
     </table>
 </div>
-{% endblock content %}
+{% endblock %}

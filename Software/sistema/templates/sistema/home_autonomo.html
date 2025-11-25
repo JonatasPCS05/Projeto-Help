@@ -1,27 +1,53 @@
 {% extends 'global/partials/base.html' %}
+
 {% block nav %}
     {% include 'global/partials/navUser.html' %}
 {% endblock nav %}
+
+{% block title %}Meus Serviços | {% endblock title %}
+
 {% block content %}
-<h2>Minhas Solicitações</h2>
-<table class="table">
-  <thead>
-    <tr>
-      <th>Serviço</th>
-      <th>Endereço</th>
-      <th>Data</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for servico in servicos %}
-      <tr>
-        <td>{{ servico.get_tipo_servico_display }}</td>
-        <td>{{ servico.endereco }}</td>
-        <td>{{ servico.data_solicitacao|date:"d/m/Y" }}</td>
-      </tr>
-    {% empty %}
-      <tr><td colspan="3">Nenhum serviço aceito ainda.</td></tr>
-    {% endfor %}
-  </tbody>
-</table>
+<div class="main-content container">
+    <h2>Minhas Propostas e Serviços</h2>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="message {{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Serviço</th>
+          <th>Cliente</th>
+          <th>Status</th>
+          <th>Sua Proposta</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for servico in servicos %}
+          <tr>
+            <td>{{ servico.get_tipo_servico_display }}</td>
+            <td>{{ servico.usuario.username }}<br><small>{{ servico.endereco }}</small></td>
+            <td>
+                {% if servico.status == 'proposta_enviada' %}
+                    <span style="color: #FFD700; font-weight: bold;">Aguardando Cliente</span>
+                {% elif servico.status == 'pendente' %}
+                    <span style="color: green; font-weight: bold;">Aprovado (Agendado)</span>
+                {% elif servico.status == 'concluido' %}
+                    <span style="color: blue;">Concluído</span>
+                {% endif %}
+            </td>
+            <td>
+                R$ {{ servico.valor_hora }}<br>
+                {{ servico.data_visita|date:"d/m/Y H:i" }}
+            </td>
+          </tr>
+        {% empty %}
+          <tr><td colspan="4">Você ainda não enviou propostas.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+</div>
 {% endblock %}
